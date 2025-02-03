@@ -60,13 +60,13 @@ body {
 
 .home-icon {
     position: fixed;  /* Keeps it in the top-left even when scrolling */
-    top: 30px;        /* Adjust distance from the top */
-    left: 30px;       /* Adjust distance from the left */
+    top: 80px;        /* Adjust distance from the top */
+    left: 80px;       /* Adjust distance from the left */
     font-size: 24px;  /* Make the icon a reasonable size */
     text-decoration: none; /* Remove underline if using <a> */
 }
 
 .home-icon img {
-    width: 50px;   /* Adjust size */
+    width: 100px;   /* Adjust size */
     height: auto;  /* Maintain aspect ratio */
 }
