@@ -47,18 +47,13 @@ body {
     font-weight: bold;
 }
 
-.box-description a h2 {
-    color: #ffa647; /* Change to desired color, e.g., yellow */
-    text-decoration: none; /* Remove underline for the linked h2 */
-}
-
-/* On hover, change the color of h2 */
-.box-description a h2:hover {
-    color: #ffa647; /* Change color on hover, e.g., orange */
+.box-description a {
+    color: #ffa647; /* Apply the color to the link */
+    text-decoration: none; /* Remove underline */
 }
 
 
 .box-description p {
     font-size: 14px;
-    color: #ffa647;
+    color: #ffbe78;
 }
