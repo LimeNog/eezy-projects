@@ -33,7 +33,7 @@ header h1 {
 }
 
 .box-image {
-    height: 90%; /* Top two-thirds of the box */
+    height: 85%; /* Top two-thirds of the box */
     background-size: cover;
     background-position: center;
 }
@@ -42,7 +42,7 @@ header h1 {
     display: flex; 
     justify-content: center;  /* Centers horizontally */
     align-items: center;      /* Centers vertically */
-    height: 10%;          
+    height: 15%;          
     text-align: center;       /* Centers text */
     background-color: #353535;
 }
