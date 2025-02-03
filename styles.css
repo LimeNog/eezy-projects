@@ -39,10 +39,12 @@ header h1 {
 }
 
 .box-description {
-    height: 10%; /* Bottom third of the box */
+    display: flex; 
+    justify-content: center;  /* Centers horizontally */
+    align-items: center;      /* Centers vertically */
+    height: 100%;             /* Ensure it takes full height */
+    text-align: center;       /* Centers text */
     background-color: #353535;
-    padding: 15px;
-    text-align: left;
 }
 
 .box-description h2 {
@@ -50,11 +52,6 @@ header h1 {
     font-size: 20px;
     font-weight: bold;
     color: #ff8400;
-}
-
-.box-description p {
-    font-size: 14px;
-    color: #ffbe78;
 }
 
 .home-icon img {
