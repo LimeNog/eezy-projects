@@ -58,9 +58,15 @@ body {
     color: #ffbe78;
 }
 
+.home-icon {
+    position: fixed;  /* Keeps it in the top-left even when scrolling */
+    top: 10px;        /* Adjust distance from the top */
+    left: 10px;       /* Adjust distance from the left */
+    font-size: 24px;  /* Make the icon a reasonable size */
+    text-decoration: none; /* Remove underline if using <a> */
+}
+
 .home-icon img {
-    width: 30px; /* Adjust size */
-    position: absolute;
-    top: 10px;
-    left: 10px;
+    width: 30px;   /* Adjust size */
+    height: auto;  /* Maintain aspect ratio */
 }
