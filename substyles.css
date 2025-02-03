@@ -13,6 +13,7 @@ header h1 {
 .container {
     display: flex;
     flex-direction: column;
+    border-radius: 15px;
     gap: 20px;
     width: 100%;
     padding: 0 20px;
@@ -21,7 +22,6 @@ header h1 {
 .box {
     display: flex;
     flex-direction: column;
-    height: 200px;        /* Adjust height as needed */
     width: 100%;          /* Makes the box take the full width */
     border-radius: 15px;
     background-color: #353535; /* Optional: background color */
