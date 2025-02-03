@@ -5,6 +5,10 @@ body {
     color: #fff;
 }
 
+header h1 {
+    color: #ff8400; /* Change to your desired color */
+}
+
 .container {
     display: flex;
     justify-content: center;
