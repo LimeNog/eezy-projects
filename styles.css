@@ -42,7 +42,7 @@ header h1 {
     display: flex; 
     justify-content: center;  /* Centers horizontally */
     align-items: center;      /* Centers vertically */
-    height: 100%;             /* Ensure it takes full height */
+    height: 10%;          
     text-align: center;       /* Centers text */
     background-color: #353535;
 }
