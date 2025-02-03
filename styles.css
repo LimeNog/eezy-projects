@@ -57,3 +57,10 @@ body {
     font-size: 14px;
     color: #ffbe78;
 }
+
+.home-icon img {
+    width: 30px; /* Adjust size */
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
