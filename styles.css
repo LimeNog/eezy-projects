@@ -45,13 +45,8 @@ body {
     margin: 0;
     font-size: 20px;
     font-weight: bold;
+    color: #ff8400;
 }
-
-.box-description a {
-    color: #ffa647; /* Apply the color to the link */
-    text-decoration: none; /* Remove underline */
-}
-
 
 .box-description p {
     font-size: 14px;
