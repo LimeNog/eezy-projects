@@ -14,13 +14,13 @@ header h1 {
     display: flex;
     flex-direction: column;
     width: 100%;
+    gap: 20px
 }
 
 .box {
     display: flex;
     flex-direction: column;
     width: 100%;          /* Makes the box take the full width */
-    border-radius: 15px;
     background-color: #353535; /* Optional: background color */
     text-decoration: none;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: box shadow */
@@ -41,6 +41,7 @@ header h1 {
     text-align: center;       /* Centers text */
     background-color: #353535;
     padding: 10px;
+    border-radius: 15px;
 }
 
 .box-description h2 {
