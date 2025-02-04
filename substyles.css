@@ -26,6 +26,7 @@ header h1 {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: box shadow */
     transition: transform 0.3s;
     margin: 0 20px
+    background-color: #353535;
     border-radius: 15px;
 }
 
@@ -39,9 +40,7 @@ header h1 {
     align-items: center;      /* Centers vertically */
     height: 100%;          
     text-align: center;       /* Centers text */
-    background-color: #353535;
     padding: 10px;
-    border-radius: 15px;
 }
 
 .box-description h2 {
