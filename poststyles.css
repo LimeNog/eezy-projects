@@ -16,6 +16,10 @@ header {
     margin: 20px auto;
 }
 
+h2 {
+    color: #ff8400;
+}
+
 .blog-meta {
     font-size: 14px;
     color: #444;
