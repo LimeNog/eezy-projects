@@ -41,7 +41,7 @@ header h1 {
     align-items: left;      
     height: 100%;          
     text-align: left;       
-    padding: 10px;
+    padding: 20px;
 }
 
 .box-description h2 {
@@ -49,7 +49,7 @@ header h1 {
     font-size: 20px;
     font-weight: bold;
     color: #ff8400;
-    padding: 10px
+    margin-bottom: 10px;
 }
 
 .box-description p {
