@@ -36,6 +36,7 @@ header h1 {
 
 .box-description {
     display: flex; 
+    flex-direction: column;
     justify-content: left;  /* Centers horizontally */
     align-items: center;      /* Centers vertically */
     height: 100%;          
