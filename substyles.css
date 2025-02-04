@@ -37,10 +37,10 @@ header h1 {
 .box-description {
     display: flex; 
     flex-direction: column;
-    justify-content: left;  /* Centers horizontally */
-    align-items: center;      /* Centers vertically */
+    justify-content: center;
+    align-items: center;      
     height: 100%;          
-    text-align: center;       /* Centers text */
+    text-align: left;       
     padding: 10px;
 }
 
@@ -49,6 +49,7 @@ header h1 {
     font-size: 20px;
     font-weight: bold;
     color: #ff8400;
+    padding: 10px
 }
 
 .box-description p {
