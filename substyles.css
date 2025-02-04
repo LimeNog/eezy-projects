@@ -5,8 +5,18 @@ body {
     color: #fff;
 }
 
+header {
+    background-color: #ff8400; /* Orange background */
+    padding: 20px; /* Adds space inside the header */
+    border-radius: 15px; /* Optional: Rounds the corners */
+    text-align: center; /* Centers the text */
+    margin: 20px auto; /* Centers the header horizontally */
+}
+
 header h1 {
-    color: #ff8400; /* Change to your desired color */
+    color: black; /* Sets the text color to black */
+    margin: 0;
+    font-weight: bold;
 }
 
 
