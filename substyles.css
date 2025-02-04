@@ -1,5 +1,5 @@
 body {
-    font-family: Garamond, serif;
+    font-family: "Times New Roman", Times, serif;
     text-align: center;
     background-color: #000;
     color: #fff;
@@ -49,13 +49,13 @@ header h1 {
     font-size: 20px;
     font-weight: bold;
     color: #ff8400;
-    margin-bottom: 10px;
 }
 
 .box-description p {
     margin: 0;
     font-size: 15px;
     color: #ffbe78;
+    margin-top: 10px;
 }
 
 .home-icon img {
