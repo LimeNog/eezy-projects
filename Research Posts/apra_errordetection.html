@@ -15,8 +15,70 @@
 
     <article class="blog-post">
         <h2>Introduction</h2>
-        <p>Under the Financial Sector (Collection of Data) Act 2001, superannuation entities are required to submit a set of reporting forms to APRA. These are typically reviewed by senior actuaries before they are submitted and involve thousands and thousands of rows of numbers per form, and would thus greatly benefit from automation, allowing senior actuaries to devote their time elsewhere.</p>
+        <p>Under the Financial Sector (Collection of Data) Act 2001, superannuation entities are required to submit a set of reporting forms to APRA (https://www.apra.gov.au/reporting-requirements-for-superannuation-entities). These are typically reviewed by senior actuaries before they are submitted and involve thousands and thousands of rows of numbers per form, and would thus greatly benefit from automation, allowing senior actuaries to devote their time elsewhere. This project is focused specifically on Reporting Form SRF 550.0 Asset Allocation.</p>
 
+        <h2>Explanation of SRF 550.0</h2>
+        <p>SRF 550.0 aims to “collect information relating to the asset allocation and investments of registrable superannuation entities”. It comprises of the following columns:</p>
+        <table border="1">
+            <tr>
+                <th>Column name</th>
+                <th>Valid values</th>
+            </tr>
+            <tr>
+                <th>Investment Option Identifier</th>
+                <th></th>
+            </tr>
+            <tr>
+                <th>Investment Strategic Sector Type</th>
+                <th>Cash, Fixed Income, Fixed Income Excluding Credit, Credit, Equity, Property, Infrastructure, Alternatives, Growth Alternatives, Defensive Alternatives, Currency Exposure</th>
+            </tr>
+            <tr>
+                <th>Investment Strategic Sector Listing Type</th>
+                <th>Listed, Unlisted, Not Specified, Not Applicable</th>
+            </tr>
+            <tr>
+                <th>Investment Strategic Sector Domicile Type</th>
+                <th>Australian Domicile, International Domicile, Not Specified, Not Applicable</th>
+            </tr>
+            <tr>
+                <th>Investment Strategic Sector International Economy Type</th>
+                <th>Emerging Markets, Developed Markets, Not Specified, Not Applicable</th>
+            </tr>
+            <tr>
+                <th>Investment Strategic Subsector Type</th>
+                <th>Cash, Fixed Income, Fixed Income Excluding Credit, Credit, Equity, Property, Infrastructure, Alternatives, Growth Alternatives, Defensive Alternatives, Not Applicable</th>
+            </tr>
+            <tr>
+                <th>Investment Strategic Subsector Listing Type</th>
+                <th>Listed, Unlisted, Not Specified, Not Applicable</th>
+            </tr>
+            <tr>
+                <th>Investment Strategic Subsector Domicile Type</th>
+                <th>Australian Domicile, International Domicile, Not Specified, Not Applicable</th>
+            </tr>
+            <tr>
+                <th>Investment Strategic Subsector International Economy Type</th>
+                <th>Emerging Markets, Developed Markets, Not Specified, Not Applicable</th>
+            </tr>
+            <tr>
+                <th>Investment Benchmark Allocation Percent</th>
+                <th></th>
+            </tr>
+            <tr>
+                <th>Investment Benchmark Allocation Lower Percent</th>
+                <th></th>
+            </tr>
+            <tr>
+                <th>Investment Benchmark Allocation Upper Percent</th>
+                <th></th>
+            </tr>
+            <tr>
+                <th>Investment Currency Hedging Ratio Percent</th>
+                <th></th>
+            </tr>
+        </table>
+        <p>https://www.apra.gov.au/sites/default/files/2023-03/Reporting%20Standard%20SRS%20550.0%20Asset%20Allocation%20Clean_0.pdf</p>
+        
         <h2>Non-AI automated checks</h2>
         <blockquote>
             "If you can kill someone with sweets, why use poison?" – Ajay Yadav
