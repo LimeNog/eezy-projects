@@ -55,6 +55,28 @@ footer {
 }
 
 
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid white;
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #ff8400;
+    color: black;
+}
+
+td {
+    background-color: #353535;
+    color: white;
+}
+
+
 
 
 
