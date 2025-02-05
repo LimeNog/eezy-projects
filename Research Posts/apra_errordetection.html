@@ -80,7 +80,7 @@
         </table>
         <p>The Investment Option Identifier specifies each of the different investment options that the superannuation entity offers. For example, AustralianSuper offers the following PreMixed options: High Growth, Balanced, Socially Aware, Indexed Diversified, Conservative Balanced, Stable<sup><a href="#ref3">[3]</a></sup>. Within each of these investment options, the superannuation funds choose to allocate a certain proportion of funds into different asset classes. These different asset classes are classified by columns 2-8, but mainly by columns 2, 4 and 5 as most asset classes are not broken down into strategic subsectors and the listing type is mostly irrelevant.</p>
         <p>The Investment Benchmark Allocation percent describes the “target proportion of assets which the RSE licensee has adopted as being appropriate in order to meet the investment objectives of the RSE licensee’s investment strategy under… SPS 530”<sup><a href="#ref4">[4]</a></sup>. In other words, it describes the target allocation of an investment option each specific asset class, and the Investment Benchmark Allocation Lower and Upper Percent are lower and upper bounds for these target allocations.</p>
-        <p>Finally, the Investment Currency Hedging Ratio Percent reports the “target level of currency hedging (i.e. where derivative financial instruments are used to reduce the risk of adverse currency movements)” (determined by the RSE licensee)<sup><a href="#ref5">[5]</a></sup>.</p>
+        <p>Finally, the Investment Currency Hedging Ratio Percent reports the “target level of currency hedging (i.e. where derivative financial instruments are used to reduce the risk of adverse currency movements)” (determined by the RSE licensee)<sup><a href="#ref4">[4]</a></sup>.</p>
 
         <h3>Possible errors and checks</h3>
         <p>The most obvious error that can occur comes from the fact that columns 10-13 are percentages – all values in these columns must be between 0% and 100%. Further, it does not make sense for target asset allocations or currency hedging ratios to be between 0% and 1% or between 99% and 100% – there is no reason for 0.5% or 99.5% of funds in an investment option to one asset class or to currency hedge only 0.5% or 99.5% or an asset class. Hence, a simple check would be that <strong>columns 10-13 must be between 1% and 99%.</strong></p>
@@ -101,7 +101,6 @@
             <li id="ref2">https://www.apra.gov.au/sites/default/files/2023-03/Reporting%20Standard%20SRS%20550.0%20Asset%20Allocation%20Clean_0.pdf</li>
             <li id="ref3">https://www.australiansuper.com/tools-and-advice/learn/product-disclosure-statements</li>
             <li id="ref4">https://www.apra.gov.au/sites/default/files/2021-03/Reporting%20Standard%20SRS%20101.0%20-%20Definitions%20for%20Superannuation%20Data%20Collections.pdf</li>
-            <li id="ref5">https://www.apra.gov.au/sites/default/files/2021-03/Reporting%20Standard%20SRS%20101.0%20-%20Definitions%20for%20Superannuation%20Data%20Collections.pdf</li>
         </ol>
 
     </article>
