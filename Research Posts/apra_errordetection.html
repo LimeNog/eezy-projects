@@ -15,11 +15,12 @@
 
     <article class="blog-post">
         <h2>Introduction</h2>
-        <p>Under the Financial Sector (Collection of Data) Act 2001, superannuation entities are required to submit a set of reporting forms to APRA (https://www.apra.gov.au/reporting-requirements-for-superannuation-entities). These are typically reviewed by senior actuaries before they are submitted and involve thousands and thousands of rows of numbers per form, and would thus greatly benefit from automation, allowing senior actuaries to devote their time elsewhere. This project is focused specifically on Reporting Form SRF 550.0 Asset Allocation.</p>
+        <p>Under the Financial Sector (Collection of Data) Act 2001, superannuation entities are required to submit a set of reporting forms to APRA <sup><a href="#ref1">[1]</a></sup>. These are typically reviewed by senior actuaries before they are submitted and involve thousands and thousands of rows of numbers per form, and would thus greatly benefit from automation, allowing senior actuaries to devote their time elsewhere. This project is focused specifically on Reporting Form SRF 550.0 Asset Allocation.</p>
 
         <h2>Explanation of SRF 550.0</h2>
         <p>SRF 550.0 aims to “collect information relating to the asset allocation and investments of registrable superannuation entities”. It comprises of the following columns:</p>
         <table border="1">
+            <caption>Column names in SRF 550.0<sup><a href="#ref2">[2]</a></sup></caption>
             <tr>
                 <th>Column name</th>
                 <th>Valid values</th>
@@ -77,15 +78,36 @@
                 <th></th>
             </tr>
         </table>
-        <p>https://www.apra.gov.au/sites/default/files/2023-03/Reporting%20Standard%20SRS%20550.0%20Asset%20Allocation%20Clean_0.pdf</p>
+        <p>The Investment Option Identifier specifies each of the different investment options that the superannuation entity offers. For example, AustralianSuper offers the following PreMixed options: High Growth, Balanced, Socially Aware, Indexed Diversified, Conservative Balanced, Stable<sup><a href="#ref3">[3]</a></sup>. Within each of these investment options, the superannuation funds choose to allocate a certain proportion of funds into different asset classes. These different asset classes are classified by columns 2-8, but mainly by columns 2, 4 and 5 as most asset classes are not broken down into strategic subsectors and the listing type is mostly irrelevant.</p>
+        <p>The Investment Benchmark Allocation percent describes the “target proportion of assets which the RSE licensee has adopted as being appropriate in order to meet the investment objectives of the RSE licensee’s investment strategy under… SPS 530”<sup><a href="#ref4">[4]</a></sup>. In other words, it describes the target allocation of an investment option each specific asset class, and the Investment Benchmark Allocation Lower and Upper Percent are lower and upper bounds for these target allocations.</p>
+        <p>Finally, the Investment Currency Hedging Ratio Percent reports the “target level of currency hedging (i.e. where derivative financial instruments are used to reduce the risk of adverse currency movements)” (determined by the RSE licensee)<sup><a href="#ref5">[5]</a></sup>.</p>
+
+        <h3>Possible errors and checks</h3>
+        <p>The most obvious error that can occur comes from the fact that columns 10-13 are percentages – all values in these columns must be between 0% and 100%. Further, it does not make sense for target asset allocations or currency hedging ratios to be between 0% and 1% or between 99% and 100% – there is no reason for 0.5% or 99.5% of funds in an investment option to one asset class or to currency hedge only 0.5% or 99.5% or an asset class. Hence, a simple check would be that <strong>columns 10-13 must be between 1% and 99%.</strong></p>
+        <p>Naturally, <strong>for each Investment Option Identifier at a specific time, the sum of the Investment Benchmark Allocation Percent should sum up to 1</strong>. It follows that <strong>for each investment option identifier at a specific time, the sum of the Investment Benchmark Allocation Lower and Upper Percent should be greater than and less than 1 respectively</strong>.</p>
+        <p>As a side note, the use of Product Disclosure Statements is futile – asset allocations in past PDS’ differ from data in the respective past SRF 550.0 forms as the SRF 550.0 forms describe target allocations, not actual allocations.</p>
+        <p>A more complex error to detect stems from the fact that most superannuation entities offer pre-mixed investment options labelled as ‘Growth’, ‘Secure’, etc, and these labels imply a certain level of risk and return that the members are willing to accept. Hence, <strong>the allocation into different asset classes in superannuation investment options tends not to change over time, and if they do, they should not change by much</strong>. For example, a ‘Growth’ investment option will tend to always have high allocation into equities and low allocation into cash and fixed income.</p>
+
         
-        <h2>Non-AI automated checks</h2>
+        <h2>Candidate models for error detection</h2>
         <blockquote>
             "If you can kill someone with sweets, why use poison?" – Ajay Yadav
         </blockquote>
 
+        
+        <h2>References</h2>
+        <ol>
+            <li id="ref1">https://www.apra.gov.au/reporting-requirements-for-superannuation-entities</li>
+            <li id="ref2">https://www.apra.gov.au/sites/default/files/2023-03/Reporting%20Standard%20SRS%20550.0%20Asset%20Allocation%20Clean_0.pdf</li>
+            <li id="ref3">https://www.australiansuper.com/tools-and-advice/learn/product-disclosure-statements</li>
+            <li id="ref4">https://www.apra.gov.au/sites/default/files/2021-03/Reporting%20Standard%20SRS%20101.0%20-%20Definitions%20for%20Superannuation%20Data%20Collections.pdf</li>
+            <li id="ref5">https://www.apra.gov.au/sites/default/files/2021-03/Reporting%20Standard%20SRS%20101.0%20-%20Definitions%20for%20Superannuation%20Data%20Collections.pdf</li>
+        </ol>
+
     </article>
 
+    
+    
     <footer>
         <p>© 2025 Eezy Projects | <a href="../index.html">Home</a></p>
     </footer>
