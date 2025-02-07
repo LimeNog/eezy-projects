@@ -120,7 +120,7 @@
         <p>The moving average (MA) component is a linear combination of past errors/shocks in the time series – for up to q past shocks, the model is:</p>
         \[
             x_t = \mu + w_t + \theta_1 w_{t-1} + \cdots + \theta_q w_{t-q}
-        /]
+        \]
         <p>Past shocks are not nearly as useful as past values in predicting future values in this context – if a superannuation product increases its allocation in equity from 30% to 40%, it likely will not increase it again to 50% right after that as changes in the asset allocation of superannuation products do not occur frequently. Another thing to note is that <strong>this component (and this model in entirety) can only ‘remember’ the last q shocks</strong>. It would be plausible for an investment option’s allocation in equity to drop from 45% to 40% 8 years ago, stay at 40%, until dropping to 35% this year:</p>
         <img src="images/ARIMA_graph.jpg" style="display: block; margin: 0 auto;">
         <p>However, an error-detection-adapted MA model with, say, q=3 would have ‘forgotten’ that shock 10 years ago and would flag this as an error confidently.</p>
