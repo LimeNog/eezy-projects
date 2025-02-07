@@ -11,6 +11,11 @@
     <header>
         <h1>Automation of error detection in APRA forms</h1>
         <p class="blog-meta">Published on <span>February 4, 2025</span> by <span>Emil</span></p>
+        <script type="text/javascript" async
+            src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script type="text/javascript" async
+            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
     </header>
 
     <article class="blog-post">
@@ -79,20 +84,51 @@
             </tr>
         </table>
         <p>The Investment Option Identifier specifies each of the different investment options that the superannuation entity offers. For example, AustralianSuper offers the following PreMixed options: High Growth, Balanced, Socially Aware, Indexed Diversified, Conservative Balanced, Stable<sup><a href="#ref3">[3]</a></sup>. Within each of these investment options, the superannuation funds choose to allocate a certain proportion of funds into different asset classes. These different asset classes are classified by columns 2-8, but mainly by columns 2, 4 and 5 as most asset classes are not broken down into strategic subsectors and the listing type is mostly irrelevant.</p>
-        <p>The Investment Benchmark Allocation percent describes the “target proportion of assets which the RSE licensee has adopted as being appropriate in order to meet the investment objectives of the RSE licensee’s investment strategy under… SPS 530”<sup><a href="#ref4">[4]</a></sup>. In other words, it describes the target allocation of an investment option each specific asset class, and the Investment Benchmark Allocation Lower and Upper Percent are lower and upper bounds for these target allocations.</p>
+        <p>The Investment Benchmark Allocation percent describes the “target proportion of assets which the RSE licensee has adopted as being appropriate in order to meet the investment objectives of the RSE licensee’s investment strategy under… SPS 530”<sup><a href="#ref4">[4]</a></sup>. In other words, it describes the target allocation of an investment option into each specific asset class, and the Investment Benchmark Allocation Lower and Upper Percent are lower and upper bounds for these target allocations.</p>
         <p>Finally, the Investment Currency Hedging Ratio Percent reports the “target level of currency hedging (i.e. where derivative financial instruments are used to reduce the risk of adverse currency movements)” (determined by the RSE licensee)<sup><a href="#ref4">[4]</a></sup>.</p>
 
         <h3>Possible errors and checks</h3>
-        <p>The most obvious error that can occur comes from the fact that columns 10-13 are percentages – all values in these columns must be between 0% and 100%. Further, it does not make sense for target asset allocations or currency hedging ratios to be between 0% and 1% or between 99% and 100% – there is no reason for 0.5% or 99.5% of funds in an investment option to one asset class or to currency hedge only 0.5% or 99.5% or an asset class. Hence, a simple check would be that <strong>columns 10-13 must be between 1% and 99%.</strong></p>
+        <p>The most obvious error that can occur comes from the fact that columns 10-13 are percentages – all values in these columns must be between 0% and 100%. Further, it does not make sense for target asset allocations or currency hedging ratios to be between 0% and 1% or between 99% and 100% – there is no reason for 0.5% or 99.5% of funds in an investment option to be allocated to one asset class or to currency hedge only 0.5% or 99.5% or an asset class. Hence, a simple check would be that <strong>columns 10-13 must be between 1% and 99%.</strong></p>
         <p>Naturally, <strong>for each Investment Option Identifier at a specific time, the sum of the Investment Benchmark Allocation Percent should sum up to 1</strong>. It follows that <strong>for each investment option identifier at a specific time, the sum of the Investment Benchmark Allocation Lower and Upper Percent should be greater than and less than 1 respectively</strong>.</p>
         <p>As a side note, the use of Product Disclosure Statements is futile – asset allocations in past PDS’ differ from data in the respective past SRF 550.0 forms as the SRF 550.0 forms describe target allocations, not actual allocations.</p>
         <p>A more complex error to detect stems from the fact that most superannuation entities offer pre-mixed investment options labelled as ‘Growth’, ‘Secure’, etc, and these labels imply a certain level of risk and return that the members are willing to accept. Hence, <strong>the allocation into different asset classes in superannuation investment options tends not to change over time, and if they do, they should not change by much</strong>. For example, a ‘Growth’ investment option will tend to always have high allocation into equities and low allocation into cash and fixed income.</p>
 
         
         <h2>Candidate models for error detection</h2>
+        <p>The first four checks can be smoothly implemented using the Pandas library in Python – no modelling is required. The final check of whether the asset allocations are changing by a significant amount over time cannot be automated in a similar way and hence requires a statistical model.</p>
         <blockquote>
             "If you can kill someone with sweets, why use poison?" – Ajay Yadav
         </blockquote>
+        <p>It is worth noting that an over-complicated model would be overkill and could have negative consequences for the error detection system due to overfitting. Hence, it would be ideal to start with a simple model and gradually increase the complexity until it is no longer appropriate to do so.</p>
+
+        <h3>Linear regression</h3>
+        <p>The simplest model that can be used for this task is a simple linear regression. This incorporates all the data points in a time series to form a line of best fit. To adapt this to error detection, a linear regression fit on time series data from past SRF 550.0 forms can be used to predict this year’s benchmark allocation for each asset class and investment option, and an acceptable range for deviations.</p>
+        <p>However, from a theoretical standpoint, the data would already fail one of the assumptions of linear regression, which is that the <strong>residuals should be independent of each other</strong> – in other words, no autocorrelation exists<sup><a href="#ref5">[5]</a></sup>. In general, <strong>time series data is autocorrelated</strong>, meaning that values of the same variable across different time points are correlated<sup><a href="#ref6">[6]</a></sup>. This data is no exception – if an investment option has 30% allocated in equities last year, this year’s allocation in equities will most likely be close to 30% this year.</p>
+        <p>Even ignoring this, a simple thought experiment illustrates the flaws in this method. Consider an investment option with 60% allocated to equities and 40% allocated to cash. This allocation lasts for 2 years, and on the 3rd year, the superannuation entity deems that a 40% equity and 60% cash allocation is appropriate, before reverting to the original allocation on the 9th year. On the 10th year, the superannuation entity enters the same 60%-40% equity-cash allocation into its SRF 550.0. This is clearly not a data point that should be flagged as an error as it is the same as the previous year, but the linear regression would predict this allocation as an error:</p>
+        <img src="images/LR_graph.jpg" style="display: block; margin: 0 auto;">
+        <p>This is because this implementation of <strong>linear regression would weigh all data points equally, regardless of whether the data point is from 10 years or 1 year ago</strong>, even though last year’s asset allocation would be much more significant in predicting this year’s data. </p>
+
+        <h3>Autoregressive integrated moving average (ARIMA)</h3>
+        <p>A model that would overcome all of these weaknesses of linear regression is ARIMA (applied in the same way that linear regression was proposed to be applied). This model explicitly accounts for time dependency in data by using lagged values of the variable as predictors<sup><a href="#ref7">[7]</a></sup>. Also, from a theoretical standpoint, the key assumption for validly applying ARIMA is that the time series needs to be stationary (its mean, variance and autocorrelation should remain constant over time)<sup><a href="#ref8">[8]</a></sup>. The asset allocation in superannuation investment options should be sufficiently stationary due to the passive nature of the superannuation industry.</p>
+        <p>The ARIMA model comprises of three components: an autoregressive component, a moving average component, and an ‘integrated’ aspect.</p>
+        <p>The ARMA model is simply a combination of the autoregressive (AR) and moving average (MA) models. ARIMA builds on the ARMA model by adding an element of differencing – the ‘integrated’ aspect of ARIMA simply means that rather than using lagged values as predictors, lagged differences of order d can be used instead. For example, if d=1, instead of using lagged values (e.g. x_(t-1),x_(t-2)) to predict future values (e.g. x_t), it uses lagged <strong>differences</strong> (e.g. x_(t-1)-x_(t-2)) to predict future <strong>differences</strong> (e.g. x_t-x_(t-1)). This allows changes in asset allocation percentages to be trended, rather than just the percentages themselves, which is particularly useful in this context as changes in asset allocation are few and far between.</p>
+        <p>The autoregressive (AR) component is a linear combination of <strong>past/lagged values</strong> in the time series – for up to p lagged data points, the model is:</p>
+        \[
+            x_t = \phi_0 + \phi_1 x_{t-1} + \cdots + \phi_p x_{t-p} + w_t
+        \]
+        <p>Similarly to linear regression, this allows past data to be used to form a future trend. However, it enables flexibility in weighting the different lagged values, <strong>allowing last year’s data point to weigh more than data points from before that</strong>.</p>
+        <p>The moving average (MA) component is a linear combination of past errors/shocks in the time series – for up to q past shocks, the model is:</p>
+        \[
+            x_t = \mu + w_t + \theta_1 w_{t-1} + \cdots + \theta_q w_{t-q}
+        /]
+        <p>Past shocks are not nearly as useful as past values in predicting future values in this context – if a superannuation product increases its allocation in equity from 30% to 40%, it likely will not increase it again to 50% right after that as changes in the asset allocation of superannuation products do not occur frequently. Another thing to note is that <strong>this component (and this model in entirety) can only ‘remember’ the last q shocks</strong>. It would be plausible for an investment option’s allocation in equity to drop from 45% to 40% 8 years ago, stay at 40%, until dropping to 35% this year:</p>
+        <img src="images/ARIMA_graph.jpg" style="display: block; margin: 0 auto;">
+        <p>However, an error-detection-adapted MA model with, say, q=3 would have ‘forgotten’ that shock 10 years ago and would flag this as an error confidently.</p>
+        <p>Another issue with the ARIMA model is that <strong>it does not incorporate changes in the allocation of other asset classes in detecting errors</strong>. For example, since Australian equities and international equities have a more similar risk-return trade-off than Australian equities and cash, an allocation increase in Australian equities is more likely to be an error if accompanied by a decrease in cash (Scenario 2) rather than a decrease in international equities (Scenario 1): </p>
+        <img src="images/ARIMArisk_graph.jpg" style="display: block; margin: 0 auto;">
+        <p>This can be remedied with the use of VARIMA which is the generalised/‘Vector’ ARIMA model and allows interactions between different time series to be taken into account.</p>
+        <p>However, <strong>VARIMA cannot be implemented on historical data with constant values</strong>. In this context, this is a big issue because it is likely that some asset classes’ allocations would stay constant within the time period of available data and also investment options such as Australian Food Super’s Secure option (which has 100% cash) would have a constant allocation by definition<sup><a href="#ref9">[9]</a></sup>. There are ways to work around this, but they are overly complicated and are not worth it given the other flaws of VARIMA applied in this context.</p>
+        
 
         
         <h2>References</h2>
@@ -101,6 +137,11 @@
             <li id="ref2">https://www.apra.gov.au/sites/default/files/2023-03/Reporting%20Standard%20SRS%20550.0%20Asset%20Allocation%20Clean_0.pdf</li>
             <li id="ref3">https://www.australiansuper.com/tools-and-advice/learn/product-disclosure-statements</li>
             <li id="ref4">https://www.apra.gov.au/sites/default/files/2021-03/Reporting%20Standard%20SRS%20101.0%20-%20Definitions%20for%20Superannuation%20Data%20Collections.pdf</li>
+            <li id="ref5">https://online.stat.psu.edu/stat500/lesson/9/9.2/9.2.3</li>
+            <li id="ref6">https://www.statisticssolutions.com/dissertation-resources/autocorrelation/</li>
+            <li id="ref7">https://people.duke.edu/~rnau/411arim.htm#:~:text=The%20ARIMA%20forecasting%20equation%20for,lags%20of%20the%20forecast%20errors</li>
+            <li id="ref8">https://hex.tech/blog/stationarity-in-time-series/</li>
+            <li id="ref9">https://www.ausfoodsuper.com.au/member-investment-choice/#:~:text=The%20Secure%20Option%20provides%20investment,will%20provide%20a%20negative%20return.</li>
         </ol>
 
     </article>
